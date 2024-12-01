@@ -15,9 +15,12 @@ const registerSchema = z.object({
   path: ["confirmPassword"],
 });
 
+
+
 const Register = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
+  const brandData = []
   const {
     register,
     handleSubmit,
@@ -25,16 +28,20 @@ const Register = () => {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-
   const onSubmit = (data) => {
     // Simulate registration - replace with actual API call
+    brandData.push((prev) => ({...prev, data}));
+    
     login({
       id: '1',
       email: data.email,
       name: data.name,
     });
     navigate('/');
+    console.log("brandData", brandData);
   };
+
+  
 
   return (
     <div className="max-w-md mx-auto">

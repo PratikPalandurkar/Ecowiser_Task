@@ -21,13 +21,25 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
   });
 
+  const loginArr = [
+    { emailId: 'test@gmail.com', password: 'test123' },
+  ]
   const onSubmit = (data) => {
+    loginArr.map((dataAr, index)=> {
+   
+       if (dataAr.emailId === data.email && dataAr.password === data.password) {
+    
+
+     
     login({
       id: '1',
       email: data.email,
       name: 'Test User',
     });
     navigate('/');
+  } 
+    
+})
   };
 
   return (
