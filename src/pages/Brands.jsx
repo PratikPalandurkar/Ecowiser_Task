@@ -30,6 +30,7 @@ const Brands = () => {
   };
 
   const handleEdit = (brand) => {
+
     setEditingBrand(brand);
     setIsFormOpen(true);
   };
@@ -50,6 +51,18 @@ const Brands = () => {
       }
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
+
+  const brandArray = [
+    { id: Math.random().toString(36).substr(2, 9), name: 'Brand 1', description: 'Description 1', logo: 'https://via.placeholder.com/150', userId: '1', createdAt: '2022-01-01T00:00:00.000Z' },
+    { id: Math.random().toString(36).substr(2, 9), name: 'Brand 2', description: 'Description 2', logo: 'https://via.placeholder.com/150', userId: '1', createdAt: '2022-01-02T00:00:00.000Z' },
+    { id: Math.random().toString(36).substr(2, 9), name: 'Brand 3', description: 'Description 3', logo: 'https://via.placeholder.com/150', userId: '1', createdAt: '2022-01-03T00:00:00.000Z' },
+    { id: Math.random().toString(36).substr(2, 9), name: 'Brand 4', description: 'Description 4', logo: 'https://via.placeholder.com/150', userId: '1', createdAt: '2022-01-04T00:00:00.000Z' },
+  ]
+
+  console.log("filteredBrands", filteredBrands);
+  console.log("brandArray", brandArray);
+
+
 
   return (
     <div>
@@ -110,6 +123,16 @@ const Brands = () => {
           />
         ))}
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {brandArray.map((brand) => (
+          <BrandCard
+            key={brand.id}
+            brand={brand}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
 
       {filteredBrands.length === 0 && (
         <div className="text-center py-12">
@@ -118,7 +141,9 @@ const Brands = () => {
               No brands found matching "{searchTerm}"
             </p>
           ) : (
-            <p className="text-gray-500">No brands yet. Create your first brand!</p>
+            <p className="text-gray-500">
+              {/* No brands yet. Create your first brand! */}
+            </p>
           )}
         </div>
       )}

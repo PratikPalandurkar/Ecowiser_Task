@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -20,7 +20,6 @@ const registerSchema = z.object({
 const Register = () => {
   const navigate = useNavigate();
   const { login } = useAuthStore();
-  const brandData = []
   const {
     register,
     handleSubmit,
@@ -28,20 +27,29 @@ const Register = () => {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
+  const [brandData, setBrandData] = useState([]);
+
   const onSubmit = (data) => {
-    // Simulate registration - replace with actual API call
-    brandData.push((prev) => ({...prev, data}));
-    
+
+    console.log("data", data);
+
+    setBrandData((prev) => {
+      return [...prev, data]
+    })
+
     login({
       id: '1',
       email: data.email,
       name: data.name,
     });
-    navigate('/');
-    console.log("brandData", brandData);
-  };
+    // navigate('/');
 
-  
+
+  };
+  useEffect(() => {
+    console.log("brandData-----", brandData);
+
+  }, [brandData?.length])
 
   return (
     <div className="max-w-md mx-auto">

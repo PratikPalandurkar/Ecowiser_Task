@@ -57,6 +57,29 @@ export default function Products() {
       }
     });
 
+  const productsArray = [
+    {
+      id: Math.random().toString(36).substr(2, 9),
+      userId: '1',
+      createdAt: new Date().toISOString(),
+      name: 'Product 1',
+      description: 'Description 1',
+      category: 'Category 1',
+      imageUrl: 'https://via.placeholder.com/150',
+      price: 10.99,
+    },
+    {
+      id: Math.random().toString(36).substr(2, 9),
+      userId: '1',
+      createdAt: new Date().toISOString(),
+      name: 'Product 2',
+      description: 'Description 1',
+      category: 'Category 1',
+      imageUrl: 'https://via.placeholder.com/150',
+      price: 10.99,
+    },
+  ]
+
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -114,6 +137,16 @@ export default function Products() {
           />
         ))}
       </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {productsArray.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
+        ))}
+      </div>
 
       {filteredProducts.length === 0 && (
         <div className="text-center py-12">
@@ -123,7 +156,7 @@ export default function Products() {
             </p>
           ) : (
             <p className="text-gray-500">
-              No products yet. Create your first product!
+              {/* No products yet. Create your first product! */}
             </p>
           )}
         </div>
